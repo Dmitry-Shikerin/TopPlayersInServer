@@ -55,7 +55,8 @@ namespace Топ_Игроков_Сервера
 
             while ( isWork )
             {
-                ShowAllPlayers();
+                Console.WriteLine("Список всех игроков");
+                ShowInfo(_players);
 
                 Console.WriteLine();
                 Console.WriteLine($"{CommandTopPlayersByLevel} - Топ игроков по уровню");
@@ -92,20 +93,14 @@ namespace Топ_Игроков_Сервера
         {
             var sortredPlayerByLevel = _players.OrderByDescending(player => player.Level).Take(_playersCountInTop);
 
-            foreach (Player player in sortredPlayerByLevel)
-            {
-                player.ShowInfo();
-            }
+            ShowInfo(sortredPlayerByLevel);
         }
 
         private void SortByPower()
         {
             var sortredPlayerByPower = _players.OrderByDescending(player => player.Power).Take(_playersCountInTop);
 
-            foreach (Player player in sortredPlayerByPower)
-            {
-                player.ShowInfo();
-            }
+            ShowInfo(sortredPlayerByPower);
         }
 
         private List<Player> Create()
@@ -127,11 +122,17 @@ namespace Топ_Игроков_Сервера
             return players;
         }
 
-        private void ShowAllPlayers()
+        private void ShowInfo(IEnumerable<Player> players)
         {
-            Console.WriteLine("Список всех игроков");
+            foreach (Player player in players)
+            {
+                player.ShowInfo();
+            }
+        }
 
-            foreach (Player player in _players)
+        private void ShowInfo(List<Player> players)
+        {
+            foreach (Player player in players)
             {
                 player.ShowInfo();
             }
